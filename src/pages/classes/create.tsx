@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card.tsx";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm } from "@refinedev/react-hook-form";
 import { classSchema } from "@/lib/schema.ts";
 import * as z from "zod";
 
@@ -35,8 +35,6 @@ import {
 import { Textarea } from "@/components/ui/textarea.tsx";
 import { Loader2 } from "lucide-react";
 import UploadWidget from "@/components/upload-widget";
-import { url } from "inspector";
-
 const Create = () => {
   const back = useBack();
 
@@ -86,18 +84,18 @@ const Create = () => {
     },
   ];
 
-  const bannerPublicId = form.watch("bannerPublicId");
+  const bannerCldPubId = form.watch("bannerCldPubId");
 
-  const setBannerImage = (file, field) => {
+  const setBannerImage = (file: any, field: any) => {
     if (file) {
       field.onChange(file.url);
-      form.setValue("bannerCldPublicId", file.publicId, {
+      form.setValue("bannerCldPubId", file.publicId, {
         shouldValidate: true,
         shouldDirty: true,
       });
     } else {
       field.onChange("");
-      form.setValue("bannerCldPublicId", "", {
+      form.setValue("bannerCldPubId", "", {
         shouldValidate: true,
         shouldDirty: true,
       });
@@ -143,19 +141,19 @@ const Create = () => {
                             field.value
                               ? {
                                   url: field.value,
-                                  publicId: bannerPublicId ?? "",
+                                  publicId: bannerCldPubId ?? "",
                                 }
                               : null
                           }
-                          onChange={(file: any, field: any) =>
+                          onChange={(file: any) =>
                             setBannerImage(file, field)
                           }
                         />
                       </FormControl>
                       <FormMessage />
-                      {errors.bannerCldPublicId && !errors.bannerUrl && (
+                      {errors.bannerCldPubId && !errors.bannerUrl && (
                         <p className="text-destructive text-sm">
-                          {errors.bannerCldPublicId.message?.toString()}
+                          {errors.bannerCldPubId.message?.toString()}
                         </p>
                       )}
                     </FormItem>
