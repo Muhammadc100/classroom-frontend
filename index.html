@@ -20,16 +20,33 @@
       content="https://refine.dev/img/refine_social.png"
     />
     <script type="text/javascript">
-(function(w,d,s,r,k,h,m){
-	if(w.performance && w.performance.timing && w.performance.navigation && !w.s247r) {
-		w[r] = w[r] || function(){(w[r].q = w[r].q || []).push(arguments)};
-		h=d.createElement('script');h.async=true;h.setAttribute('src',s+k);
-		d.getElementsByTagName('head')[0].appendChild(h);
-		(m = window.onerror),(window.onerror = function (b, c, d, f, g) {
-		m && m(b, c, d, f, g),g || (g = new Error(b)),(w[r].q = w[r].q || []).push(["captureException",g]);})
-	}
-})(window,document,'//static.site24x7rum.com/beacon/site24x7rum-min.js?appKey=','s247r','6aeab8bcc53a44a5ca1773364f3e728c');
+(function (w, d, s, r, k, h, m) {
+  if (!w[r]) {
+    w[r] = function () {
+      (w[r].q = w[r].q || []).push(arguments);
+    };
+
+    h = d.createElement("script");
+    h.async = true;
+    h.src = s + k;
+    d.head.appendChild(h);
+
+    m = w.onerror;
+    w.onerror = function (b, c, d, f, g) {
+      if (m) m(b, c, d, f, g);
+      g = g || new Error(b);
+      (w[r].q = w[r].q || []).push(["captureException", g]);
+    };
+  }
+})(
+  window,
+  document,
+  "https://static.site24x7rum.com/beacon/site24x7rum-min.js?appKey=",
+  "s247r",
+  "6aeab8bcc53a44a5ca1773364f3e728c"
+);
 </script>
+
     <title>
       Refine - Build your React-based CRUD applications, without constraints.
     </title>
