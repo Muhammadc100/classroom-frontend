@@ -135,6 +135,11 @@ const ClassesList = () => {
       sorters: {
         initial: [{ field: "id", order: "desc" }],
       },
+      queryOptions: {
+        staleTime: 30_000, // cache 30 seconds
+        refetchOnMount: true, // refetch if cache expired
+        refetchOnWindowFocus: true, // optional, keep data fresh
+      },
     },
   });
 
@@ -143,6 +148,11 @@ const ClassesList = () => {
     pagination: {
       pageSize: 100,
     },
+    queryOptions: {
+      staleTime: Infinity,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    },
   });
 
   const { query: teacherQuery } = useList<User>({
@@ -150,6 +160,11 @@ const ClassesList = () => {
     filters: [{ field: "role", operator: "eq", value: "teacher" }],
     pagination: {
       pageSize: 100,
+    },
+    queryOptions: {
+      staleTime: Infinity,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
     },
   });
 
@@ -178,10 +193,7 @@ const ClassesList = () => {
           </div>
 
           <div className="flex gap-2 w-full sm:w-auto">
-            <Select
-              value={selectedSubject}
-              onValueChange={setSelectedSubject}
-            >
+            <Select value={selectedSubject} onValueChange={setSelectedSubject}>
               <SelectTrigger>
                 <SelectValue placeholder="Filter by subject" />
               </SelectTrigger>
@@ -196,10 +208,7 @@ const ClassesList = () => {
               </SelectContent>
             </Select>
 
-            <Select
-              value={selectedTeacher}
-              onValueChange={setSelectedTeacher}
-            >
+            <Select value={selectedTeacher} onValueChange={setSelectedTeacher}>
               <SelectTrigger>
                 <SelectValue placeholder="Filter by teacher" />
               </SelectTrigger>

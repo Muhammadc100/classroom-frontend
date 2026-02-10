@@ -63,20 +63,28 @@ const Create = () => {
   };
 
   const { query: subjectQuery } = useList<Subject>({
-    resource: 'subjects',
+    resource: "subjects",
     pagination: {
-      pageSize: 100
-    }
-  })
+      pageSize: 100,
+    },
+    queryOptions: {
+      staleTime: Infinity, // cache forever
+      refetchOnMount: false, // don’t refetch every mount
+      refetchOnWindowFocus: false, // don’t refetch on tab focus
+    },
+  });
   const { query: teacherQuery } = useList<User>({
-    resource: 'users',
-    filters: [
-      { field: 'role', operator: 'eq', value: 'teacher' }
-    ],
+    resource: "users",
+    filters: [{ field: "role", operator: "eq", value: "teacher" }],
     pagination: {
-      pageSize: 100
-    }
-  })
+      pageSize: 100,
+    },
+    queryOptions: {
+      staleTime: Infinity, // cache forever
+      refetchOnMount: false, // don’t refetch every mount
+      refetchOnWindowFocus: false, // don’t refetch on tab focus
+    },
+  });
 
   const subjects = subjectQuery?.data?.data || [];
   const subjectsLoading = subjectQuery.isLoading;
@@ -145,9 +153,7 @@ const Create = () => {
                                 }
                               : null
                           }
-                          onChange={(file: any) =>
-                            setBannerImage(file, field)
-                          }
+                          onChange={(file: any) => setBannerImage(file, field)}
                         />
                       </FormControl>
                       <FormMessage />
