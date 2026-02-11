@@ -17,6 +17,7 @@ import { useList } from "@refinedev/core";
 import { ColumnDef } from "@tanstack/react-table";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
+import { ShowButton } from "@/components/refine-ui/buttons/show";
 
 const ClassesList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -123,6 +124,12 @@ const ClassesList = () => {
             <span className="text-foreground">{getValue<number>()}</span>
           ),
         },
+        {
+          id: 'details',
+          size: 140,
+          header: () => <p className="column-title">Details</p>,
+          cell: ({ row }) => <ShowButton resource="classes" recordItemId={row.original.id} variant="outline" size="sm">View</ShowButton>
+        }
       ],
       [],
     ),
@@ -134,12 +141,7 @@ const ClassesList = () => {
       },
       sorters: {
         initial: [{ field: "id", order: "desc" }],
-      },
-      queryOptions: {
-        staleTime: 30_000, // cache 30 seconds
-        refetchOnMount: true, // refetch if cache expired
-        refetchOnWindowFocus: true, // optional, keep data fresh
-      },
+      }
     },
   });
 
@@ -160,12 +162,7 @@ const ClassesList = () => {
     filters: [{ field: "role", operator: "eq", value: "teacher" }],
     pagination: {
       pageSize: 100,
-    },
-    queryOptions: {
-      staleTime: Infinity,
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-    },
+    }
   });
 
   const subjects = subjectQuery?.data?.data || [];
