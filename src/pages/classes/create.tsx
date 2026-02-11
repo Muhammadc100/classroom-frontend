@@ -66,24 +66,14 @@ const Create = () => {
     resource: "subjects",
     pagination: {
       pageSize: 100,
-    },
-    queryOptions: {
-      staleTime: Infinity, // cache forever
-      refetchOnMount: false, // don’t refetch every mount
-      refetchOnWindowFocus: false, // don’t refetch on tab focus
-    },
+    }
   });
   const { query: teacherQuery } = useList<User>({
     resource: "users",
     filters: [{ field: "role", operator: "eq", value: "teacher" }],
     pagination: {
       pageSize: 100,
-    },
-    queryOptions: {
-      staleTime: Infinity, // cache forever
-      refetchOnMount: false, // don’t refetch every mount
-      refetchOnWindowFocus: false, // don’t refetch on tab focus
-    },
+    }
   });
 
   const subjects = subjectQuery?.data?.data || [];
