@@ -9,11 +9,9 @@ import { Separator } from "@/components/ui/separator";
 import { ClassDetails } from "@/types";
 import { useShow } from "@refinedev/core";
 import { AdvancedImage } from "@cloudinary/react"
-
-import React from "react";
 import { bannerPhoto } from "@/lib/cloudinary";
 
-const show = () => {
+const Show = () => {
   const { query } = useShow<ClassDetails>({ resource: "classes" });
 
   const classDetails = query.data?.data;
@@ -28,7 +26,7 @@ const show = () => {
           {isLoading
             ? "Loading Class details..."
             : isError
-            ? "Failed to load classdetails..."
+            ? "Failed to load class details..."
             : "Class details not found"}
         </p>
       </ShowView>
@@ -63,8 +61,10 @@ const show = () => {
       <ShowViewHeader resource="classes" title="Class Details" />
 
       <div className="banner">
-        {bannerUrl ? (
+        {bannerUrl && bannerCldPubId ? (
           <AdvancedImage alt='Class Banner' cldImg={bannerPhoto(bannerCldPubId ?? '', name)}/>
+        ) : bannerUrl ? (
+          <img src={bannerUrl} alt="Class Banner" className="w-full h-auto rounded" />
         ) : (
           <div className="placeholder" />
         )}
@@ -140,4 +140,4 @@ const show = () => {
   );
 };
 
-export default show;
+export default Show;
